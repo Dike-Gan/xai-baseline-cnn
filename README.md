@@ -36,11 +36,7 @@ xai-baseline-cnn/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-
-yaml
-Copy code
-
----
+```
 
 ## Environment Setup
 
