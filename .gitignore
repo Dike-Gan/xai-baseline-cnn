@@ -1,0 +1,51 @@
+# ------------------------------
+# Python & PyTorch project ignore
+# ------------------------------
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# PyTorch model weights (optional keep only models/)
+*.pth
+*.pt
+
+# Large datasets (should NOT be in Git)
+102flowers/
+data/
+data/*
+
+# ImageNet subset
+ImageNetSubset/
+data/ImageNetSubset/
+
+# Temporary files
+*.DS_Store
+Thumbs.db
+
+# Logs and outputs
+*.log
+logs/
+runs/
+
+# VS Code workspace settings
+.vscode/
+
+# ---------------------------------
+# Recommended: Only keep model .pth
+# ---------------------------------
+# If you want to save model weights, move them into:
+# /models/*.pth
+# and then UNCOMMENT the next line to allow only those
+# !models/*.pth
+
