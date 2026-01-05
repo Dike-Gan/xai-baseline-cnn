@@ -23,7 +23,7 @@ All models are trained and evaluated on the same household object dataset.
 ---
 
 ## Repository Structure
-
+```
 xai-baseline-cnn/
 ├── notebooks/
 │ └── baselinemodel(block).ipynb
