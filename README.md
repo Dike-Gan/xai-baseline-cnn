@@ -24,6 +24,7 @@ All models are trained and evaluated on the same household object dataset.
 
 ## Repository Structure
 
+```text
 xai-baseline-cnn/
 ├── notebooks/
 │   └── baselinemodel_block.ipynb
@@ -36,7 +37,7 @@ xai-baseline-cnn/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-
+```
 ---
 
 ## Project Structure and Collaboration
@@ -88,7 +89,7 @@ pip install -r requirements.txt
 The project uses an ImageNet-style folder structure and relies on torchvision.datasets.ImageFolder.
 
 Place the dataset as follows:
-
+```text
 data/ImageNetSubset/
 ├── train/
 │   ├── class_1/
@@ -96,7 +97,7 @@ data/ImageNetSubset/
 └── val/
     ├── class_1/
     └── ...
-
+```
 The dataset itself is not included in this repository.
 
 ---
