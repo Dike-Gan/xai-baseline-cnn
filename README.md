@@ -106,6 +106,10 @@ The dataset itself is not included in this repository.
 
 Models C and D require a ResNet-18 checkpoint pretrained on a flower dataset.
 
+Please download the checkpoint from the following link:
+
+https://drive.google.com/file/d/1UsEhli2mWnZqqSzViYHte6ldmGPBS92-/view?usp=sharing
+
 Place the file here:
 
 models/flower_resnet18_state.pth
