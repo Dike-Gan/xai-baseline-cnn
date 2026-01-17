@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(python scripts/train_flower_pretrain.py:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(python:*)",
+      "Bash(pip uninstall:*)",
+      "Bash(pip install:*)",
+      "Bash(cmd /c \"del \\\\?\\\\c:\\\\Users\\\\Elahe\\\\Desktop\\\\Repo-xAI-Proj-B\\\\block-4-5-model-ab-fatemeh\\\\nul\")",
+      "Bash(git add:*)",
+      "Bash(cmd /c \"cd /d c:\\\\Users\\\\Elahe\\\\Desktop\\\\Repo-xAI-Proj-B\\\\block-4-5-model-ab-fatemeh && del /f /q \\\\?\\\\c:\\\\Users\\\\Elahe\\\\Desktop\\\\Repo-xAI-Proj-B\\\\block-4-5-model-ab-fatemeh\\\\nul && echo Deleted\")",
+      "Bash(cmd /c \"dir c:\\\\Users\\\\Elahe\\\\Desktop\\\\Repo-xAI-Proj-B\\\\block-4-5-model-ab-fatemeh\\\\nul\")"
+    ]
+  }
+}
