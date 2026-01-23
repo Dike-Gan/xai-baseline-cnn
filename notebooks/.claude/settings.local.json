@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\Elahe\\\\Desktop\\\\Repo-xAI-Proj-B\\\\block-4-5-model-ab-fatemeh\\\\notebooks\\\\models\")"
+    ]
+  }
+}
