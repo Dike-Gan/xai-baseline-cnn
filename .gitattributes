@@ -1,1 +1,2 @@
+models/flowers/flowers-102/*.tgz filter=lfs diff=lfs merge=lfs -text
 models/flowers/flowers-102/102flowers.tgz filter=lfs diff=lfs merge=lfs -text
