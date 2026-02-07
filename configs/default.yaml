@@ -1,0 +1,33 @@
+seed: 42
+
+paths:
+  data_root: "data/ImageNetSubset"
+  ckpt_dir: "artifacts/checkpoints"
+  flower_ckpt: "models/flower_resnet18_state.pth"
+
+data:
+  root: "data/ImageNetSubset"  # 这里是数据集根目录的路径
+  input_size: 224
+  batch_size: 32
+  num_workers: 0
+  mean: [0.485, 0.456, 0.406]
+  std:  [0.229, 0.224, 0.225]
+
+training:
+  epochs: 10
+  lr_A: 0.001
+  lr_B: 0.0001
+  lr_C: 0.001
+  lr_D: 0.0001
+  momentum: 0.9
+  batch_size: 32
+
+difficulty:
+  split: "test"          # "val" or "test"
+  top_n: 50
+
+gradcam:
+  split: "test"         # "val" or "test"
+  model_name: "Model A" # 选一个模型生成热力图
+  max_images: 50        # 最多生成多少张
+  target_layer: "layer4" # resnet18: layer4 最常用
