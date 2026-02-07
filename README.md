@@ -1,309 +1,124 @@
-<<<<<<< HEAD
-# Baseline CNN Project (ResNet-18)
+# XAI Baseline Models for 10-Class Household Object Classification
 
-This repository contains a baseline CNN project for a household object classification task.
-We systematically compare four ResNet-18–based models with different pretraining strategies
-and training regimes.
+This project implements four baseline convolutional neural network models for a **10-class household object classification task**.
 
-The project is structured for **clarity, reproducibility, and team collaboration** in a
-course setting.
+The purpose is to compare how different forms of pretraining (ImageNet vs. Flowers-102) and different training strategies (Linear Probing vs. Fine-Tuning) affect model performance and explainability.
 
 ---
 
-## Models Overview
+## Project Overview
 
-We implement and compare the following four baseline models:
+We study the effect of transfer learning under four different configurations:
 
-- **Model A**: ImageNet-pretrained ResNet-18, frozen backbone (linear probing)
-- **Model B**: ImageNet-pretrained ResNet-18, full fine-tuning
-- **Model C**: Flower-pretrained ResNet-18, frozen backbone (linear probing)
-- **Model D**: Flower-pretrained ResNet-18, full fine-tuning
+| Model | Pretraining | Strategy | Description |
+|-------|-------------|----------|-------------|
+| **IN-LP** | ImageNet | Linear Probing | Frozen ImageNet features |
+| **IN-FT** | ImageNet | Fine-Tuning | Adapted ImageNet features |
+| **FL-LP** | Flowers-102 | Linear Probing | Frozen flower features |
+| **FL-FT** | Flowers-102 | Fine-Tuning | Adapted flower features |
 
-All models are trained and evaluated on the same household object dataset.
+### Naming Convention
+
+- **IN** = ImageNet pretrained
+- **FL** = Flowers-102 pretrained
+- **LP** = Linear Probing (only FC layer trained)
+- **FT** = Fine-Tuning (all layers trained)
 
 ---
 
 ## Repository Structure
-```
-xai-baseline-cnn/
+
+```text
+block-4-5-model-ab-fatemeh/
 ├── notebooks/
-│ └── baselinemodel(block).ipynb
+│   └── baselinemodel_block.ipynb    # Main experiment notebook
 ├── data/
-│ └── ImageNetSubset/
-│ ├── train/
-│ └── val/
+│   ├── ImageNetSubset/              # 10-class dataset (train/val)
+│   └── xAI_ImageNet1k_OwnTestSet/   # Test set
 ├── models/
-│ └── (model checkpoints, optional)
+│   ├── best_model_A.pth             # IN-LP weights
+│   ├── best_model_B.pth             # IN-FT weights
+│   ├── best_model_C.pth             # FL-LP weights
+│   ├── best_model_D.pth             # FL-FT weights
+│   └── flower_resnet18_state.pth    # Flower pretraining checkpoint
+├── scripts/
+│   └── train_flower_pretrain.py     # Script to create flower-pretrained weights
+├── report/
+│   └── main.tex                     # LaTeX report
+├── gradcam_outputs/                 # Grad-CAM visualizations
 ├── requirements.txt
-├── .gitignore
 └── README.md
 ```
 
-## Environment Setup
+---
 
-We recommend using Python 3.10+ in a virtual environment.
+## Dataset
 
-Install dependencies via:
+**10 Household Object Classes:**
+- binder, coffee-mug, computer-keyboard, mouse, notebook
+- remote-control, soup-bowl, teapot, toilet-tissue, wooden-spoon
+
+| Split | Images | Per Class |
+|-------|--------|-----------|
+| Train | 13,000 | 1,300 |
+| Val | 500 | 50 |
+| Test | 4,409 | ~440 |
+
+---
+
+## Installation
 
 ```bash
-pip install -r requirements.txt
-Dataset Preparation
-The project uses an ImageNet-style folder structure and relies on
-torchvision.datasets.ImageFolder.
-
-Please place the dataset as follows:
-
-kotlin
-Copy code
-data/ImageNetSubset/
-├── train/
-│   ├── class_1/
-│   ├── class_2/
-│   └── ...
-└── val/
-    ├── class_1/
-    ├── class_2/
-    └── ...
-Note: The dataset itself is not included in this repository.
-
-Pretrained Flower Checkpoint (Required for Model C & D)
-Models C and D require a ResNet-18 checkpoint pretrained on a flower dataset:
-
-bash
-Copy code
-models/flower_resnet18_state.pth
-Please download or provide this file separately and place it in the models/ directory.
-
-Running the Experiments
-All experiments are executed via the Jupyter notebook:
-
-bash
-Copy code
-notebooks/baselinemodel(block).ipynb
-Run the notebook cells sequentially to:
-
-Load data
-
-Initialize models A–D
-
-Train each model
-
-Evaluate validation performance
-
-Best-performing checkpoints are automatically saved to the models/ directory.
-
-Reproducibility
-Random seed is fixed (seed = 42)
-
-Training is performed using PyTorch
-
-Results may vary slightly depending on hardware and CUDA configuration
-
-Collaboration Notes
-This repository intentionally uses a block-structured notebook to clearly demonstrate
-individual responsibilities and model components in a team-based project.
-=======
-````markdown
-# XAI Baseline Models for 10-Class Household Object Classification
-
-This project implements four baseline convolutional neural network models (A, B, C, D)  
-for a **10-class household object classification task**.  
-The purpose is to compare how different forms of pretraining (ImageNet vs. Flower102)  
-and different training strategies (linear probe vs. fine-tuning) affect model performance.
-
-This repository is collaboratively developed by three team members using a  
-branch-based Git workflow and a structured block system.
-
----
-
-## 📦 Project Overview
-
-We study the effect of transfer learning under four different configurations:
-
-| Model | Pretraining | Backbone | Training Strategy |
-|-------|-------------|----------|-------------------|
-| **Model A** | ImageNet | ResNet-18 | Linear probe (backbone frozen) |
-| **Model B** | ImageNet | ResNet-18 | Full fine-tuning |
-| **Model C** | Flower102 | ResNet-18 | Linear probe (backbone frozen) |
-| **Model D** | Flower102 | ResNet-18 | Full fine-tuning |
-
-Models C and D use a backbone that was first fine-tuned on the  
-**Oxford 102 Flowers** dataset.
-
-The goal is to evaluate how domain-specific pretraining influences  
-downstream performance on household object classification.
-
----
-
-## 📂 Repository Layout
-
-> Note: Some large datasets may **not be tracked** in Git for space reasons  
-> (e.g., `102flowers/`, `data/ImageNetSubset/`).  
-> They are documented here so that others can recreate the setup.
-
-```text
-xai_project/
-│
-├── 102flowers/                     # (optional in Git) Flower102 dataset files
-├── data/
-│   └── ImageNetSubset/             # (optional in Git) 10-class household subset
-│
-├── models/                         # Directory for saved model checkpoints (.pth)
-│
-├── notebooks/
-│   └── baselinemodel(block).ipynb  # Collaboration notebook with block structure
-│
-├── flowers_dataset.py              # Custom Flower102 dataset loader
-├── train_flower_pretrain.py        # Script used to create flower-pretrained weights
-│
-├── requirements.txt                # Clean environment dependencies
-└── README.md                       # Project documentation
-````
-
----
-
-## 👥 Collaboration Structure (Block System)
-
-The notebook `notebooks/baselinemodel(block).ipynb` contains **8 blocks**, each
-representing a functional part of the project (dataset, training loop, models A–D, etc.).
-
-Each team member writes their name next to the block they take responsibility for, e.g.:
-
-```text
-Block 4 – Model A  
-Assigned to: Fatemeh
-```
-
-Each block is implemented in a **separate Git branch**, and then merged into `main`
-via Pull Requests. This makes individual contributions and teamwork clearly visible.
-
----
-
-## 🌱 Flower Pretraining
-
-Models C and D use a backbone that was first fine-tuned on the **Oxford 102 Flowers dataset**.
-
-The training script:
-
-```text
-train_flower_pretrain.py
-```
-
-produces a weight file such as:
-
-```text
-models/flower_resnet18_state.pth
-```
-
-During baseline training, we remove the final `fc` layer and load only the backbone weights.
-
----
-
-## 🔧 Installation
-
-Clone the repository:
-
-```bash
+# Clone repository
 git clone <repository-url>
-cd xai_project
-```
+cd block-4-5-model-ab-fatemeh
 
-Create a virtual environment (recommended):
-
-```bash
+# Create virtual environment
 python -m venv .venv
-source .venv/bin/activate   # On Windows (PowerShell): .venv\Scripts\Activate.ps1
-```
+source .venv/bin/activate  # Windows: .venv\Scripts\Activate.ps1
 
-Install dependencies:
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Running the project
+## Running the Experiments
 
-After installing the dependencies and preparing the datasets in
-`data/ImageNetSubset/` and `102flowers/`, start Jupyter:
+Open the Jupyter notebook:
 
 ```bash
-jupyter notebook
+jupyter notebook notebooks/baselinemodel_block.ipynb
 ```
 
-Then open:
+### Workflow:
 
-```text
-notebooks/baselinemodel(block).ipynb
-```
+1. **Run Blocks 0-7** (setup and model definitions)
+2. **Run Block 8** (train all models) - ~30-60 minutes
+3. **Run Block 9** (test evaluation)
+4. **Run Block 10** (Grad-CAM explainability)
 
-This notebook contains the **block structure** for the project.
-Each team member will implement their assigned blocks in their own branch.
-
-A separate, fully implemented training notebook can be created later
-by combining the completed blocks.
+After first training, use **Block 8.5** to load saved models instantly.
 
 ---
 
-## 🌿 Git Workflow for Team Members
+## Results Summary
 
-### 1. Choose blocks
-
-Open:
-
-```text
-notebooks/baselinemodel(block).ipynb
-```
-
-Add your name to your assigned blocks.
-
-### 2. Create or switch to your feature branch
-
-```bash
-git checkout <your-branch-name>
-# e.g.
-# git checkout Dike
-# git checkout Fatemeh
-# git checkout Ruiqi
-```
-
-Make sure your branch is up to date with `main`:
-
-```bash
-git pull origin main
-```
-
-### 3. Implement your block(s)
-
-Write code only for the blocks assigned to you.
-
-### 4. Commit and push
-
-```bash
-git add .
-git commit -m "Implement Block 4 – Model A (Fatemeh)"
-git push origin <your-branch-name>
-```
-
-### 5. Open a Pull Request
-
-Open a PR from your branch into `main`.
-After review and approval, your work will be merged.
+| Model | Val Acc | Test Acc |
+|-------|---------|----------|
+| IN-LP | ~82% | ~41% |
+| IN-FT | ~85% | ~45% |
+| FL-LP | ~82% | ~41% |
+| FL-FT | ~84% | ~42% |
 
 ---
 
-## ✨ Authors
+## Authors
 
-* **Dike** – Project structure, flower pretraining, dataset pipeline
-* **Fatemeh** – Models A & B
-* **Ruiqi** – Models C & D
+- **Fatemeh Mohammadi** - Models IN-LP & IN-FT (Blocks 4-5)
 
 ---
 
-## 📄 License
+## License
 
-For academic/exercise use only.
-
-````
->>>>>>> c0a18d9 (Initial commit: clean CNN project skeleton)
+For academic/educational use only.
