@@ -6,6 +6,7 @@ def evaluate_accuracy(model, dataloader, device):
     """
     Evaluate classification accuracy of a model on a given dataloader.
     """
+    model = model.to(device)
     model.eval()
 
     correct = 0

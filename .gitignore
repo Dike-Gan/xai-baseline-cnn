@@ -40,6 +40,8 @@ runs/
 # VS Code workspace settings
 .vscode/
 
+outputs/
+
 # ---------------------------------
 # Recommended: Only keep model .pth
 # ---------------------------------

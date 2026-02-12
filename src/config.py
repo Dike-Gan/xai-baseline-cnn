@@ -26,6 +26,8 @@ def set_seed(seed: int = 42):
 def select_device(prefer_cuda=True):
     if prefer_cuda and torch.cuda.is_available():
         return torch.device("cuda")
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_built() and torch.backends.mps.is_available():
+        return torch.device("mps")
     return torch.device("cpu")
 
 
